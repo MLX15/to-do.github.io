@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+html {
+    overflow: hidden;
+}
+
+body {
+    color: white;
+    background-color: oldlace;
+    font-family: 'Roboto', sans-serif;
+    user-select: none;
+    height: 100vh;
+    position: relative;
+    box-sizing: border-box;
+}
+
+%shared-property {
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 1.2em;
+    padding: 8px 15px;
+    &:hover {
+        background-color: rgb(230, 230, 230);
+        border-radius: 10px;
+    }
+}
+
+.active {
+    background-color: rgb(230, 230, 230);
+    border-radius: 10px;
+}
+
+%transform {
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+header {
+    justify-content: start;
+    height: clamp(16px, 10vw, 100px);
+    button.openNav {
+        position: absolute;
+        left: 0;
+        display: none;
+        transform: scale(0.9);
+    }
+}
+
+main {
+    display: flex;
+    aside {
+        height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
+        width: clamp(350px, 30vw, 400px);
+        background-color: mintcream;
+        overflow: auto;
+        padding: 15px 10px;
+        .view {
+            i {
+                margin-right: 1em;
+            }
+        }
+        .task-view-as {
+            @extend %shared-property;
+        }
+        .projects {
+            span:first-child {
+                font-size: 1.8em;
+                font-weight: 700;
+            }
+            div:first-child {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .project-names {
+                div {
+                    i {
+                        display: inline-block;
+                        width: 14px;
+                    }
+                }
+            }
+        }
+    }
+    section {
+        height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
+        overflow: auto;
+        width: 100%;
+        background-color: oldlace;
+        .content {
+            height: auto;
+            margin: 1.5em auto;
+            width: 93%;
+            .view-as {
+                font-size: 2em;
+                font-weight: 700;
+                margin-left: 1em;
+                margin-bottom: 8px;
+            }
+            .add-task {
+                @extend %shared-property;
+                display: flex;
+                justify-content: center;
+                padding: 14px 0;
+                * {
+                    span {
+                        margin-left: 10px;
+                    }
+                }
+            }
+            .task {
+                @extend %shared-property;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: initial;
+                .first-group {
+                    #done:hover {
+                        cursor: pointer;
+                    }
+                }
+                .second-group {
+                    * {
+                        margin-left: 8px;
+                    }
+                    button {
+                        font-size: inherit;
+                        font-weight: 300;
+                        padding: 4px 10px;
+                        &:hover {
+                            transform: scale(1.02);
+                        }
+                    }
+                    .edit,
+                    .delete {
+                        @extend %transform;
+                        cursor: pointer;
+                    }
+                    span.date {
+                        display: inline-block;
+                        width: 78px;
+                        font-size: 0.8em;
+                    }
+                    .delete {
+                        color: rgba(0, 0, 0, 0.2);
+                        &:hover {
+                            color: red;
+                        }
+                    }
+                }
+            }
+            .delete-project-button {
+                font-size: 30px;
+                position: absolute;
+                bottom: 65px;
+                right: 20px;
+                opacity: 0.5;
+                &:hover {
+                    opacity: 1;
+                    cursor: pointer;
+                    transition: 0.5s;
+                    transform: scale(1.3) rotate(90deg);
+                }
+            }
+        }
+    }
+}
+
+.date-red-color {
+    color: red;
+}
+
+footer {
+    height: 45px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 20px;
+    i {
+        margin-left: 5px;
+        @extend %transform;
+    }
+}
+
+@media (max-width: 1200px) {
+    aside {
+        font-size: 85%;
+    }
+}
+
+@media (max-width: 950px) {
+    body {
+        font-size: 85%;
+        transition: 0.5s;
+    }
+    header {
+        justify-content: center;
+        button.openNav {
+            display: block;
+        }
+    }
+    main {
+        aside {
+            transition: 0.5s;
+            position: absolute;
+            height: calc(100vh - clamp(16px, 10vw, 100px) - 35px);
+            margin-left: -250px;
+            width: 250px;
+            z-index: 1;
+        }
+    }
+    footer {
+        height: 35px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 650px) {
+    body {
+        font-size: 75%;
+    }
+    section {
+        .content {
+            width: 97%;
+        }
+        .second-group {
+            span.date,
+            i:first-child {
+                display: none !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    body {
+        font-size: 55%;
+    }
+    header {
+        justify-content: center;
+        button.openNav {
+            margin-left: 5px !important;
+            transform: scale(0.5);
+        }
+    }
+    footer {
+        height: 25px;
+        font-size: 11px;
+    }
+    main {
+        aside {
+            height: calc(100vh - clamp(16px, 10vw, 100px) - 25px);
+            width: 50vw;
+            padding: 5px 3px;
+        }
+        section {
+            .content {
+                width: 100%;
+            }
+        }
+    }
+}
